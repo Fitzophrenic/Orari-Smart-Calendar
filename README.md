@@ -1,7 +1,7 @@
 # Orari
 Orari is a smart AI-powered calendar web app designed for busy students. It combines event scheduling, category-based organization, and AI-generated time suggestions into a single, clean interface — built to feel as simple as Google Calendar but smarter.
 
-**Live Demo:** https://orari.vercel.app
+**Live Demo:** ==WEBSITE HERE==
 
 ---
 
