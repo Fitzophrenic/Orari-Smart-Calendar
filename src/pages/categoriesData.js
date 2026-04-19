@@ -2,11 +2,11 @@
 
 // Default categories (replace these with your actual values)
 const defaultCategories = [
-  { id: 1, name: "Academic", visible: true },
-  { id: 2, name: "Work", visible: true },
-  { id: 3, name: "Fitness", visible: true  },
-  { id: 4, name: "Social", visible: true  },
-  { id: 5, name: "Personal", visible: true  },
+  { id: 1, name: "Academic", visible: true, color: "#3b82f6" },
+  { id: 2, name: "Work", visible: true, color: "#10b981" },
+  { id: 3, name: "Fitness", visible: true, color: "#ef4444" },
+  { id: 4, name: "Social", visible: true, color: "#f97316" },
+  { id: 5, name: "Personal", visible: true, color: "#8b5cf6" },
 ];
 
 const STORAGE_KEY = "categoriesData";
