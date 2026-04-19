@@ -54,46 +54,20 @@ function AppContent() {
         {/* MAIN CONTENT AREA - THE WIREFRAME LAYOUT */}
         <main className='flex-1 p-10 flex flex-row items-start justify-between gap-10'>
           
-          {/* LEFT COLUMN: Headlines & List */}
-          <div className="flex-1 max-w-[500px] flex flex-col space-y-4">
-            {/* Headline */}
-            <div className="w-full h-16 bg-[#F3F4F6] border-2 border-black flex items-center px-4">
-              <span className="font-bold text-gray-400">Headline Text</span>
-            </div>
-            {/* Description */}
-            <div className="w-full h-32 bg-white border-2 border-black p-4">
-              <span className="text-gray-400">Description Text</span>
-            </div>
-            {/* List Rows */}
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-[#F3F4F6] border-2 border-black flex-shrink-0"></div>
-                <div className="w-full h-10 border-2 border-black"></div>
-              </div>
-            ))}
-            {/* CTA Button */}
-            <button className="w-full h-14 bg-black text-white font-bold uppercase tracking-widest mt-4">
-              Get Started
-            </button>
-          </div>
-
-          {/* RIGHT COLUMN: The Box */}
-          <div className="flex-1 flex justify-end">
-            <ContentBox size="large" />
-          </div>
+         
             
-        <div className="absolute bottom-10 left-10 pointer-events-none">
-             {/* pointer-events-none ensures the 'ghost' box doesn't block clicks */}
-             <div className="pointer-events-auto"> 
-                <Routes>
-                  <Route path='/' element={<Calendar />} />
-                  <Route path='/categories' element={<Categories />} />
-                  <Route path='/suggestions' element={<Suggestions />} />
-                  <Route path='/alerts' element={<Alerts />} />
-                  <Route path='/profile' element={<Profile />} />
-                </Routes>
-             </div>
-          </div>
+<div className="w-full">
+  <Routes>
+    <Route path='/' element={<Calendar />} />
+    <Route path='/categories' element={<Categories />} />
+    <Route path='/suggestions' element={<Suggestions />} />
+    <Route path='/alerts' element={<Alerts />} />
+    <Route path='/profile' element={<Profile />} />
+  </Routes>
+</div>
+
+
+
         </main>
       </div>
     </div>
