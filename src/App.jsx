@@ -48,17 +48,6 @@ function serializeAppData(data) {
   });
 }
 
-function PageShell({ title, children }) {
-  return (
-    <div className="min-h-screen">
-      <div className="sticky top-0 z-30 flex h-16 items-center border-b border-orari-border bg-orari-surface px-4 lg:px-8">
-        <h1 className="font-semibold text-orari-text-primary">{title}</h1>
-      </div>
-      <div className="p-4 pb-20 lg:p-8 lg:pb-8">{children}</div>
-    </div>
-  );
-}
-
 export default function App() {
   const [appData, setAppData] = useState(loadAppDataFromStorage);
 
@@ -100,22 +89,8 @@ export default function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/dashboard" element={<Calendar />} />
             <Route path="/categories" element={<Categories />} />
-            <Route
-              path="/suggestions"
-              element={
-                <PageShell title="Suggestions">
-                  <Suggestions />
-                </PageShell>
-              }
-            />
-            <Route
-              path="/alerts"
-              element={
-                <PageShell title="Alerts">
-                  <Alerts />
-                </PageShell>
-              }
-            />
+            <Route path="/suggestions" element={<Suggestions />} />
+            <Route path="/alerts" element={<Alerts />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
         </Routes>

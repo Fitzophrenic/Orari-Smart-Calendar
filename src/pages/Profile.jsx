@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Edit2, User } from 'lucide-react';
-import Logo from '../components/orari/Logo';
+import { BrandMark } from '../components/orari/BrandMark';
 import { Button } from '../components/orari/Button';
 import { Switch } from '../components/orari/Switch';
 import { FloatingInput } from '../components/orari/FloatingInput';
@@ -9,6 +10,17 @@ const handleFilter = () => {};
 
 /** Figma `Profile.tsx` — shell from `OrariAppLayout` */
 export default function Profile() {
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    try {
+      localStorage.clear();
+    } catch {
+      /* ignore quota / private mode */
+    }
+    navigate('/');
+  };
+
   const [profile, setProfile] = useState({
     name: 'Student Name',
     email: 'student@email.com',
@@ -28,7 +40,9 @@ export default function Profile() {
   return (
     <>
       <div className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-orari-border bg-orari-surface px-4 lg:hidden">
-        <Logo variant="icon-only" size="small" />
+        <div className="flex shrink-0 items-center ml-8 sm:ml-10">
+          <BrandMark variant="onBackground" className="max-h-10 w-32 object-contain object-left sm:max-h-11 sm:w-40" />
+        </div>
         <h2 className="font-semibold text-orari-text-primary">Profile</h2>
         <div className="w-8" aria-hidden="true" />
       </div>
@@ -181,7 +195,7 @@ export default function Profile() {
           <Button variant="primary" size="lg" type="button" className="w-full" onClick={() => handleFilter()}>
             Save Changes
           </Button>
-          <Button variant="secondary" size="lg" type="button" className="w-full" onClick={() => handleFilter()}>
+          <Button variant="secondary" size="lg" type="button" className="w-full" onClick={handleSignOut}>
             Sign Out
           </Button>
         </div>

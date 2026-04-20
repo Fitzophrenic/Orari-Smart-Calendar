@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 import { format, addMonths, subMonths, addDays, isAfter, isBefore, startOfDay } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
-import Logo from '../components/orari/Logo';
+import { BrandMark } from '../components/orari/BrandMark';
 import CompactCalendar from '../components/orari/CompactCalendar';
 import EventDetailsModal from '../components/orari/EventDetailsModal';
 import { useAppData } from '../context/AppDataContext';
@@ -99,13 +99,13 @@ export default function Home() {
   return (
     <>
       <div className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-orari-border bg-orari-surface px-4 lg:px-8">
-        <div className="lg:hidden">
-          <Logo variant="icon-only" size="small" />
+        <div className="flex h-full shrink-0 items-center ml-8 sm:ml-10 lg:hidden">
+          <BrandMark variant="onBackground" className="max-h-10 w-32 object-contain object-left sm:max-h-11 sm:w-40" />
         </div>
 
         <h1 className="font-semibold text-orari-text-primary">Dashboard</h1>
 
-        <div className="w-10" aria-hidden="true" />
+        <div className="w-10 shrink-0 lg:w-0" aria-hidden="true" />
       </div>
 
       <div className="p-4 pb-20 lg:p-8 lg:pb-8">
@@ -126,7 +126,7 @@ export default function Home() {
                 </button>
               </div>
 
-              <div className="space-y-3">
+              <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
                 {suggestions.map((suggestion) => (
                   <div
                     key={suggestion.id}

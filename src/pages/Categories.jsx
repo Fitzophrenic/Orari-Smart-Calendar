@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Plus, Trash2, ChevronDown, ChevronRight } from 'lucide-react';
-import Logo from '../components/orari/Logo';
+import { BrandMark } from '../components/orari/BrandMark';
 import { Switch } from '../components/orari/Switch';
 import { Button } from '../components/orari/Button';
 import ColorPicker from '../components/orari/ColorPicker';
@@ -126,7 +126,9 @@ export default function Categories() {
   return (
     <>
       <div className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-orari-border bg-orari-surface px-4 lg:hidden">
-        <Logo variant="icon-only" size="small" />
+        <div className="flex shrink-0 items-center ml-8 sm:ml-10">
+          <BrandMark variant="onBackground" className="max-h-10 w-32 object-contain object-left sm:max-h-11 sm:w-40" />
+        </div>
         <h2 className="font-semibold text-orari-text-primary">Categories</h2>
         <div className="w-8" aria-hidden="true" />
       </div>
@@ -206,7 +208,9 @@ export default function Categories() {
                       >
                         <Trash2 className="h-4 w-4 text-orari-danger" />
                       </button>
-                      <Switch checked={calendar.enabled} onCheckedChange={() => toggleCalendar(index)} />
+                      <div className="-translate-x-px shrink-0">
+                        <Switch checked={calendar.enabled} onCheckedChange={() => toggleCalendar(index)} />
+                      </div>
                     </div>
                   </div>
 
@@ -215,7 +219,7 @@ export default function Categories() {
                       {calendar.subcategories.map((subcategory, subIndex) => (
                         <div key={subIndex}>
                           {deletingSubcategory?.categoryIndex === index && deletingSubcategory?.subIndex === subIndex ? (
-                            <div className="ml-10 border-l-2 border-orari-primary/20 bg-orari-danger/5 px-5 py-3">
+                            <div className="ml-4 border-l-2 border-orari-primary/20 bg-orari-danger/5 pl-4 pr-5 py-3">
                               <p className="mb-2 text-[13px] text-orari-text-primary">
                                 This will move {subcategory.eventCount} event{subcategory.eventCount !== 1 ? 's' : ''} to{' '}
                                 {calendar.name}. Continue?
@@ -234,7 +238,7 @@ export default function Categories() {
                               </div>
                             </div>
                           ) : (
-                            <div className="group/sub ml-10 flex items-center justify-between border-l-2 border-orari-primary/20 px-5 py-3 transition-colors hover:bg-orari-primary-light/10">
+                            <div className="group/sub ml-4 flex items-center justify-between border-l-2 border-orari-primary/20 pl-4 pr-5 py-3 text-left transition-colors hover:bg-orari-primary-light/10">
                               <div className="flex flex-1 items-center gap-3">
                                 <ColorPicker
                                   currentColor={calendar.color}
@@ -257,10 +261,12 @@ export default function Categories() {
                                 >
                                   <Trash2 className="h-3.5 w-3.5 text-orari-danger" />
                                 </button>
-                                <Switch
-                                  checked={subcategory.enabled}
-                                  onCheckedChange={() => toggleSubcategory(index, subIndex)}
-                                />
+                                <div className="-translate-x-px shrink-0">
+                                  <Switch
+                                    checked={subcategory.enabled}
+                                    onCheckedChange={() => toggleSubcategory(index, subIndex)}
+                                  />
+                                </div>
                               </div>
                             </div>
                           )}
@@ -268,7 +274,7 @@ export default function Categories() {
                       ))}
 
                       {addingSubcategoryTo === index && (
-                        <div className="ml-10 flex items-center gap-2 border-l-2 border-orari-primary/20 bg-orari-primary-light/10 px-5 py-3">
+                        <div className="ml-4 flex items-center gap-2 border-l-2 border-orari-primary/20 bg-orari-primary-light/10 pl-4 pr-5 py-3">
                           <input
                             type="text"
                             placeholder="Subcategory name"

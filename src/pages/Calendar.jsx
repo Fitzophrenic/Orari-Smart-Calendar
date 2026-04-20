@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { ChevronLeft, ChevronRight, Plus, Search } from 'lucide-react';
-import { format, addMonths, subMonths } from 'date-fns';
-import Logo from '../components/orari/Logo';
+import { format, addMonths, subMonths, addWeeks, subWeeks, addDays, subDays, startOfWeek, endOfWeek } from 'date-fns';
+import { BrandMark } from '../components/orari/BrandMark';
 import CalendarGrid from '../components/orari/CalendarGrid';
 import AddEventModal from '../components/orari/AddEventModal';
 import EventDetailsModal from '../components/orari/EventDetailsModal';
@@ -51,30 +51,53 @@ export default function Calendar() {
     setIsModalOpen(true);
   };
 
+  const goPrev = () => {
+    if (view === 'Month') setCurrentDate(subMonths(currentDate, 1));
+    else if (view === 'Week') setCurrentDate(subWeeks(currentDate, 1));
+    else setCurrentDate(subDays(currentDate, 1));
+  };
+
+  const goNext = () => {
+    if (view === 'Month') setCurrentDate(addMonths(currentDate, 1));
+    else if (view === 'Week') setCurrentDate(addWeeks(currentDate, 1));
+    else setCurrentDate(addDays(currentDate, 1));
+  };
+
+  const weekStart = startOfWeek(currentDate, { weekStartsOn: 0 });
+  const weekEnd = endOfWeek(currentDate, { weekStartsOn: 0 });
+  const rangeLabel =
+    view === 'Month'
+      ? format(currentDate, 'MMMM yyyy')
+      : view === 'Week'
+        ? `${format(weekStart, 'MMM d')} – ${format(weekEnd, 'MMM d, yyyy')}`
+        : format(currentDate, 'EEEE, MMMM d, yyyy');
+
   return (
     <>
       <div className="sticky top-0 z-30 flex h-16 w-full items-center justify-between gap-3 border-b border-orari-border bg-orari-surface px-4 lg:px-8">
-        <div className="flex w-10 shrink-0 items-center lg:pointer-events-none lg:w-0 lg:min-w-0 lg:opacity-0">
-          <div className="lg:hidden">
-            <Logo variant="icon-only" size="small" />
+        <div className="flex h-full min-w-0 shrink-0 items-center justify-start ml-8 sm:ml-10 lg:pointer-events-none lg:w-0 lg:min-w-0 lg:max-w-none lg:opacity-0">
+          <div className="flex h-full items-center lg:hidden">
+            <BrandMark variant="onBackground" className="max-h-10 w-32 object-contain object-left sm:max-h-11 sm:w-40" />
           </div>
         </div>
 
         <div className="flex min-w-0 flex-1 items-center justify-center gap-4">
           <button
             type="button"
-            onClick={() => setCurrentDate(subMonths(currentDate, 1))}
+            onClick={goPrev}
             className="rounded-lg p-2 transition-colors hover:bg-orari-primary-light"
-            aria-label="Previous month"
+            aria-label={view === 'Month' ? 'Previous month' : view === 'Week' ? 'Previous week' : 'Previous day'}
           >
             <ChevronLeft className="h-5 w-5 text-orari-text-secondary" />
           </button>
-          <h2 className="min-w-[140px] text-center font-semibold text-orari-text-primary">{format(currentDate, 'MMMM yyyy')}</h2>
+          <h2 className="min-w-0 max-w-[min(100%,220px)] truncate text-center font-semibold text-orari-text-primary sm:max-w-[280px] lg:max-w-none">
+            {rangeLabel}
+          </h2>
           <button
             type="button"
-            onClick={() => setCurrentDate(addMonths(currentDate, 1))}
+            onClick={goNext}
             className="rounded-lg p-2 transition-colors hover:bg-orari-primary-light"
-            aria-label="Next month"
+            aria-label={view === 'Month' ? 'Next month' : view === 'Week' ? 'Next week' : 'Next day'}
           >
             <ChevronRight className="h-5 w-5 text-orari-text-secondary" />
           </button>
@@ -118,6 +141,7 @@ export default function Calendar() {
         <CalendarGrid
           currentDate={currentDate}
           events={filteredEvents}
+          view={view}
           onDateClick={(date) => {
             setCurrentDate(date);
             openAddModal(format(date, 'yyyy-MM-dd'));

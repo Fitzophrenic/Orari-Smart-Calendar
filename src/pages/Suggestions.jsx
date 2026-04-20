@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { X, Sparkles, RefreshCw } from "lucide-react";
 import { Button } from "../components/orari/Button";
+import { BrandMark } from "../components/orari/BrandMark";
 import { useAppData } from "../context/AppDataContext";
 
 const motivationalQuotes = [
@@ -385,13 +386,22 @@ export default function Suggestions() {
         />
       )}
 
-      <div className="w-full flex gap-8">
+      <div className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-orari-border bg-orari-surface px-4 lg:hidden">
+        <div className="flex shrink-0 items-center ml-8 sm:ml-10">
+          <BrandMark variant="onBackground" className="max-h-10 w-32 object-contain object-left sm:max-h-11 sm:w-40" />
+        </div>
+        <h2 className="font-semibold text-orari-text-primary">Suggestions</h2>
+        <div className="w-8" aria-hidden="true" />
+      </div>
+
+      <div className="mx-auto w-full max-w-7xl px-4 pb-24 lg:px-8 lg:pb-8 lg:pt-24">
+        <div className="flex w-full flex-col gap-8 lg:flex-row lg:items-start lg:justify-center lg:gap-10">
 
         {/* ── LEFT: SUGGESTIONS ── */}
-        <div className="flex-1 max-w-3xl">
+        <div className="mx-auto w-full min-w-0 max-w-6xl lg:mx-0">
 
           {/* Page header */}
-          <div className="flex justify-between items-center mb-6">
+          <div className="mb-6 flex items-center justify-between gap-4">
             <div>
               <h1 className="text-orari-text-primary">AI Suggestions</h1>
               <p className="text-orari-text-secondary text-[13px] mt-0.5">
@@ -423,8 +433,9 @@ export default function Suggestions() {
             </div>
           )}
 
-          {/* Suggestion cards */}
-          <div className="space-y-4">
+          {/* Suggestion cards — centered block, wider on desktop */}
+          <div className="mx-auto flex w-full justify-center">
+            <div className="grid w-full max-w-6xl grid-cols-1 gap-4 xl:grid-cols-2">
             {suggestions.map((item) => {
               const { dateStr, startTime, endTime } = parseSuggestionTime(item.time || "");
               const displayDate = formatDisplayDate(dateStr);
@@ -505,11 +516,12 @@ export default function Suggestions() {
                 </div>
               );
             })}
+            </div>
           </div>
         </div>
 
         {/* ── RIGHT PANEL ── */}
-        <div className="w-72 space-y-4 shrink-0">
+        <div className="mx-auto w-full max-w-md shrink-0 space-y-4 lg:mx-0 lg:w-72 lg:max-w-none">
 
           {/* Productivity Score */}
           <div className="rounded-orari-card border border-orari-border bg-orari-surface p-5 shadow-orari-card">
@@ -588,6 +600,7 @@ export default function Suggestions() {
             </ul>
           </div>
 
+        </div>
         </div>
       </div>
     </>

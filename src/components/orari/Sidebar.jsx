@@ -1,7 +1,7 @@
 import React from 'react';
 import { Calendar, FolderKanban, Lightbulb, Bell, User, Home } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
-import logoMark from '../../assets/logo.png';
+import { BrandMark } from './BrandMark';
 import { Switch } from './Switch';
 import { useAppData } from '../../context/AppDataContext';
 
@@ -21,14 +21,7 @@ export default function Sidebar() {
   return (
     <div className="fixed left-0 top-0 z-40 hidden h-screen w-60 flex-col border-r border-orari-border bg-orari-surface lg:flex">
       <div className="px-6 pb-4 pt-5">
-        <img
-          src={logoMark}
-          alt="Orari"
-          width={148}
-          height={40}
-          className="h-9 w-auto max-h-10 max-w-[148px] object-contain object-left"
-          decoding="async"
-        />
+        <BrandMark variant="onBackground" className="w-32 object-left sm:w-40" />
       </div>
 
       <nav className="flex-1 px-3 pt-1">
@@ -39,13 +32,17 @@ export default function Sidebar() {
               key={item.path}
               to={item.path}
               end={item.path === '/home'}
-              className={({ isActive }) =>
-                `mb-1 flex w-full items-center gap-3 rounded-lg px-4 py-3 transition-all ${
+              className={({ isActive }) => {
+                const isSuggestOrAlerts = item.path === '/suggestions' || item.path === '/alerts';
+                const inactive = isSuggestOrAlerts
+                  ? 'border-l-4 border-transparent font-semibold text-orari-text-primary/80 hover:bg-orari-primary-light/50 hover:text-orari-text-primary'
+                  : 'border-l-4 border-transparent text-orari-text-secondary hover:bg-orari-primary-light/50';
+                return `mb-1 flex w-full items-center gap-3 rounded-lg px-4 py-3 transition-all ${
                   isActive
                     ? 'border-l-4 border-orari-primary bg-orari-primary-light text-orari-primary'
-                    : 'border-l-4 border-transparent text-orari-text-secondary hover:bg-orari-primary-light/50'
-                }`
-              }
+                    : inactive
+                }`;
+              }}
             >
               <Icon className="h-5 w-5" />
               <span className="font-medium">{item.label}</span>
@@ -67,7 +64,9 @@ export default function Sidebar() {
                   <div className="h-3 w-3 rounded-full" style={{ backgroundColor: calendar.color }} />
                   <span className="text-sm text-orari-text-primary">{calendar.name}</span>
                 </div>
-                <Switch checked={calendar.enabled} onCheckedChange={() => toggleCalendar(index)} />
+                <div className="-translate-x-px shrink-0">
+                  <Switch checked={calendar.enabled} onCheckedChange={() => toggleCalendar(index)} />
+                </div>
               </div>
             ))}
           </div>
