@@ -16,7 +16,6 @@ function MarkdownText({ text }) {
   const lines = text.split('\n');
 
   const renderInline = (str) => {
-    // Split on **bold** and *italic* markers
     const parts = str.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g);
     return parts.map((part, i) => {
       if (part.startsWith('**') && part.endsWith('**')) {
@@ -50,17 +49,14 @@ function MarkdownText({ text }) {
   lines.forEach((line, i) => {
     const trimmed = line.trim();
 
-    // Bullet line: starts with - or •
     if (/^[-•]\s+/.test(trimmed)) {
       bulletBuffer.push(trimmed.replace(/^[-•]\s+/, ''));
       return;
     }
 
-    // Non-bullet: flush any pending bullets first
     flushBullets();
 
     if (trimmed === '') {
-      // Empty line → small spacer (skip if last)
       if (i < lines.length - 1) {
         elements.push(<div key={`sp-${i}`} className="h-1" />);
       }
@@ -73,7 +69,7 @@ function MarkdownText({ text }) {
     }
   });
 
-  flushBullets(); // flush any trailing bullets
+  flushBullets(); 
 
   return <div className="space-y-1 text-[15px]">{elements}</div>;
 }
@@ -178,7 +174,6 @@ export default function AiChatPanel() {
         <div ref={bottomRef} />
       </div>
 
-      {/* Input */}
       <footer className="shrink-0 border-t border-orari-border p-5">
         <div className="mb-3">
           <label
